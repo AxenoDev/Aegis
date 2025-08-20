@@ -1,7 +1,6 @@
 package toutouchien.aegis.common;
 
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +10,8 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AegisCommon
 {
@@ -25,6 +26,11 @@ public class AegisCommon
         this.blockedIPs = ConcurrentHashMap.newKeySet();
     }
 
+    public boolean isBlocked(String ip)
+    {
+        return this.blockedIPs.contains(ip);
+    }
+
     @Nullable
     public Set<String> fetchBotIPs()
     {
@@ -34,10 +40,10 @@ public class AegisCommon
         try {
             url = URI.create(this.ipLink).toURL();
         } catch (MalformedURLException e) {
-            logger.error("Failed to create URL from ipLink='{}'. Malformed URL.", this.ipLink, e);
+            logger.log(Level.SEVERE, "Failed to create URL from ipLink='" + this.ipLink + "'. Malformed URL.", e);
             return null;
         } catch (IllegalArgumentException e) {
-            logger.error("Failed to create URI from ipLink='{}'. Invalid syntax.", this.ipLink, e);
+            logger.log(Level.SEVERE,"Failed to create URI from ipLink='" + this.ipLink + "'. Invalid syntax.", e);
             return null;
         }
 
@@ -49,7 +55,7 @@ public class AegisCommon
                 newBlockedIPs.add(line.trim());
             }
         } catch (IOException e) {
-            logger.error("I/O error while fetching bot IPs from {}.", url, e);
+            logger.log(Level.SEVERE, "I/O error while fetching bot IPs from {" + url + "}.", e);
             return null;
         }
 
@@ -62,11 +68,6 @@ public class AegisCommon
         {
             this.blockedIPs = newIps;
         }
-    }
-
-    public boolean isBlocked(String ip)
-    {
-        return this.blockedIPs.contains(ip);
     }
 
     public  Set<String> getBlockedIPs()

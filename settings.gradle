@@ -2,6 +2,6 @@ rootProject.name = 'Aegis'
 
 include 'common'
 include 'bukkit'
-//include 'bungeecord'
+include 'bungeecord'
 //include 'velocity'
 //include 'sponge'
