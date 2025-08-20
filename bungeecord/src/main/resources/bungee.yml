@@ -1,0 +1,4 @@
+name: Aegis
+version: '${version}'
+main: toutouchien.aegis.AegisBungeeCord
+author: Toutouchien

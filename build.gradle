@@ -32,6 +32,7 @@ allprojects {
 
     processResources {
         filteringCharset = 'UTF-8'
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         from(sourceSets.main.resources.srcDirs) {
             expand project.properties
         }
