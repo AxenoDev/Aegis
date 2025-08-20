@@ -18,7 +18,7 @@ public class AegisListener implements Listener
 
     public AegisListener(AegisBukkit bukkit)
     {
-        this.aegis = new AegisCommon(bukkit.getSLF4JLogger());
+        this.aegis = new AegisCommon(bukkit.getLogger());
 
         Bukkit.getAsyncScheduler().runAtFixedRate(bukkit, task -> {
             var newBlockedIPs = this.aegis.fetchBotIPs();

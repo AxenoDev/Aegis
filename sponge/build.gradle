@@ -1,0 +1,8 @@
+dependencies {
+    implementation project(':common')
+    compileOnly 'org.spongepowered:spongeapi:8.2.0'
+}
+
+jar {
+    archiveClassifier = 'sponge'
+}
